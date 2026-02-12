@@ -29,7 +29,7 @@ const Checkout = () => {
                 total: cartTotal
             };
 
-            const response = await axios.post('http://localhost:5000/api/orders', orderData);
+            const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/orders`, orderData);
 
             if (response.status === 201) {
                 setOrderId(response.data.orderId);

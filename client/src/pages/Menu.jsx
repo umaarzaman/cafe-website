@@ -6,9 +6,11 @@ import { Loader } from 'lucide-react';
 
 const categories = ['All', 'Coffee', 'Burgers', 'Drinks', 'Snacks'];
 
+import { menuData } from '../data/menuData';
+
 const Menu = () => {
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [products, setProducts] = useState(menuData);
+    const [loading, setLoading] = useState(false);
     const [activeCategory, setActiveCategory] = useState('All');
     const [error, setError] = useState(null);
 
@@ -16,8 +18,7 @@ const Menu = () => {
         const fetchMenu = async () => {
             try {
                 // Attempt to fetch from API
-                // Fallback to mock data if API fails (for demo purposes) or logic to handle it
-                const response = await axios.get('http://localhost:5000/api/menu');
+                const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/menu`);
                 setProducts(response.data);
             } catch (err) {
                 console.error("Failed to fetch menu:", err);
@@ -69,8 +70,8 @@ const Menu = () => {
                             key={cat}
                             onClick={() => setActiveCategory(cat)}
                             className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${activeCategory === cat
-                                    ? 'bg-terracotta text-white shadow-md transform scale-105'
-                                    : 'bg-white text-coffee-700 hover:bg-coffee-100 border border-coffee-200'
+                                ? 'bg-terracotta text-white shadow-md transform scale-105'
+                                : 'bg-white text-coffee-700 hover:bg-coffee-100 border border-coffee-200'
                                 }`}
                         >
                             {cat}
